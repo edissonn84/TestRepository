@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div class="user_list pagination_list" th:fragment="user_list">
+    <div th:switch="${userPage.content}">
+        <h2 th:case="null">Книг еще нет</h2>
+        <div th:case="*">
+            <table class="table table-success table-striped">
+                <colgroup>
+                    <col span="4" style="width: 15%">
+                </colgroup>
+                <thead>
+                <tr>
+                    <th scope="col">Фамилия</th>
+                    <th scope="col">Имя</th>
+                    <th scope="col">Отчество</th>
+                    <th scope="col">Логин</th>
+                    <th scope="col">Роль</th>
+                    <th scope="col">Статус</th>
+                    <th scope="col">Операции</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="user, iStat : ${userPage.content}"
+                    th:style="${iStat.odd}? 'font-weight: bold;'"
+                    th:alt-title="${iStat.even}? 'even' : 'odd'"
+                    th:object="${user}">
+                    <td th:text="*{lastName}"></td>
+                    <td th:text="*{firstName}"></td>
+                    <td th:text="*{middleName}"></td>
+                    <td th:text="*{login}"></td>
+                    <td th:text="*{rolesStr}"></td>
+                    <td th:text="*{status}"></td>
+
+                    <td>
+                        <a th:href="@{users/edit/(pid=*{pid})}" id="editBtn" class="btn btn-warning btn-circle">
+                            <i class="bi bi-pen"></i>
+                        </a>
+                        <a th:href="@{users/delete/(pid=*{pid})}" id="deleteBtn" class="btn btn-warning btn-circle">
+                            <i class="bi bi-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div th:insert="fragments/pagination :: pagination(${userPage}, ${pageNumbers})"></div>
+    </div>
+</div>
+</html>

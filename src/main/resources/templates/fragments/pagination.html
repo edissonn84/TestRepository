@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="pagination(page, buttonPages)">
+    <nav aria-label="Page navigation">
+        <ul th:object="${page}" class="pagination">
+            <li th:if="*{totalPages > 1}" class="page-item">
+                <a class="page-link btn" tabindex="-1" aria-disabled="true"
+                   th:attr="onclick=|pagination(1, '${@userController.PAGE_SIZE}')|">&laquo;</a>
+            </li>
+            <li th:if="*{totalPages > 0}" th:each="pageNumber : ${buttonPages}"
+                th:class="${pageNumber==page.number + 1} ? 'page-item active': 'page-item'">
+                <a class="page-link btn" th:onclick="|pagination(${pageNumber}, *{size})|"
+                   th:text="${pageNumber}">
+                </a>
+            </li>
+            <li th:if="*{totalPages > 1}" class="page-item">
+                <a class="page-link btn"
+                   th:attr="onclick=|pagination(*{totalPages}, '${@userController.PAGE_SIZE}')|">&raquo;</a>
+            </li>
+            </li>
+        </ul>
+    </nav>
+</div>
+</html>
