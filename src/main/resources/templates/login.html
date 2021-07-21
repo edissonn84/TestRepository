@@ -3,6 +3,7 @@
 <div th:replace="fragments/header :: head(~{}, ~{::link})">
     <link type="text/css" th:rel="stylesheet" th:href="@{/css/signin.css}">
 </div>
+<div></div>
 <body class="text-center" style="background-color: #66a2ba">
 <main class="form-signin">
     <p th:if="${loginError}" class="error">Wrong user or password</p>
